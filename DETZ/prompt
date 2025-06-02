@@ -1,0 +1,98 @@
+
+
+By default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. Do not install other packages for UI themes, icons, etc unless absolutely necessary or I request them.
+
+Use icons from lucide-react for logos.
+
+Use stock photos from unsplash where appropriate, only valid URLs you know exist. Do not download the images, only link to them in image tags.
+
+use imgbb apis / firebase / aspnet 
+
+12/22 - Pulitha - Delete extra Hero file - src\components\Hero.tsx
+12/22 - Pulitha - Change contact details , add Google Map iframe - src\pages\Contact.tsx
+12/22 - Pulitha - Add Drop-Down menu for Select a service in contact form - src\pages\Contact.tsx
+12/22 - Pulitha - Change Treatment data - src\data\treatments.ts
+12/22 - Pulitha - Gallery chnages - src\pages\Gallery.tsx
+12/23 - Pulitha - import Bootstrap - src\main.tsx
+12/23 - Pulitha - Add button navigate('/book') - src\pages\Treatments.tsx
+12/23 - Pulitha - Change some details - src\components\layout\Footer.tsx
+
+
+-------------------------------------------------------------------------------------
+12/24 - Nirod - intergrate with firebase using "npm install firebase" 
+// Import the functions 
+import { initializeApp } from "firebase/app";
+// web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAE5tSx-f6d77zKL6AP8FRyHRaIUP06w3o",
+  authDomain: "danielesthetixs.firebaseapp.com",
+  databaseURL: "https://danielesthetixs-default-rtdb.firebaseio.com",
+  projectId: "danielesthetixs",
+  storageBucket: "danielesthetixs.firebasestorage.app",
+  messagingSenderId: "790561794731",
+  appId: "1:790561794731:web:c9f3bd16c8b7c7789be5ee"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+-------------------------------------------------------------------------------------
+12/24 - Nirod - Add firebase database
+// Note: The BookNow component has some errors that appear to be unreasonable. 
+// However, the component is still functioning correctly. These issues will be addressed and fixed later.
+
+12/25 nirod ui update for hero
+12/25  please install - npm install bootstrap
+
+------------------
+12/25 Pulitha - Add FeaturedTreatmentsData.tsx - src\data\FeaturedTreatmentsData.ts
+12/25 Pulitha - Edit FeaturedTreatments - src\components\home\FeaturedTreatments.tsx
+
+-------------------------------------------------------------------------------------------
+
+12/25 Yoshini - Added new treatment data to Treatments.tsx
+12/25 Yoshini - Years of Experience: Change to "25". in About.tsx
+12/25 Yoshini - Updated "Happy Clients" text to "Hundreds of Canadian and International Clientele" in Testimonials.tsx
+12/25 Yoshini - Updated Gallery.tsx by doing following changes
+
+//Updated galleryItems to use the id from treatments as the treatment field for consistent mapping.
+//Modified the filter buttons to display across three separate rows for better layout.
+
+//Responsive Grid Classes in Gallery.tsx
+2 column on very small screens, 3 columns on small screens,4 columns on medium screens,5 columns on larger screens.
+
+12/25 Yoshini - Fix responsive layout on contact page
+-----------------------------------------------------------------------------------------------------
+12/26 Nirod - Contact firebase connection connected
+12/26 Nirod - Add contact.css page
+12/26 Nirod - updated hero ui
+
+
+12/30 Pulitha - Update Drop-Down menu - src\pages\BookNow.tsx
+
+//Implement a dynamic dropdown menu in the BookNow component by populating treatment options from the src\data\treatments.ts file using the treatment titles.
+
+---------------2025-----------------
+01/02 - Pulitha 
+
+// https://chatgpt.com/share/6776bbe9-b0d8-8006-8875-ff8bd18072aa  
+
+01/02 - Pulitha - Update Treatments Details and Description using ChatGPT  src\data\treatments.ts
+01/02 - Pulitha - Update Featured Treatments Details and Description using ChatGPT src\data\FeaturedTreatmentsData.ts
+01/02 - Pulitha - Update Update ( Floating Stats ) - src\components\home\Hero.tsx
+01/02 - Pulitha - Update icons in Testimonials - src\components\home\Testimonials.tsx
+
+---------------------------------------------------------------------
+
+02/15 - Pulitha - Update treatment details - src\pages\CosmeticServices.tsx
+
+02/20 - Pulitha - Update Cosmetic Services list - src\pages\CosmeticServices.tsx
+02/21 - Pulitha - medical service card clickeble and change footer add servicedata file
+                  src\pages\ServiceDetail.tsx
+
+
+
+admin login nirodsandeepa124@outlook.com pass - 123456
+npm install @emotion/react @emotion/styled
+
+----------------------------------------------------------------------------------------------------------------
+#detz
