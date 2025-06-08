@@ -11,7 +11,6 @@ import toast from 'react-hot-toast';
 import { getAvailableSlots, bookSlot } from '../lib/slots';
 import { v4 as uuidv4 } from 'uuid';
 import { Loader } from 'lucide-react';
-import { sendAppointmentEmail } from '../lib/emailjs';
 import type { TimeSlot } from '../lib/slots';
 
 interface Treatment {
@@ -28,9 +27,10 @@ export default function BookAppointment() {
   const [selectedTreatment, setSelectedTreatment] = useState('');
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState('');
-  const [userDetails, setUserDetails] = useState<{ email: string; name: string; phone: string } | null>(null);
+  const [userDetails, setUserDetails] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [availableSlots, setAvailableSlots] = useState<Record<string, TimeSlot>>({});
+  // const [closedDates, setClosedDates] = useState<string[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
   useEffect(() => {
@@ -59,12 +59,7 @@ export default function BookAppointment() {
         const userRef = ref(database, `users/${currentUser.uid}`);
         const snapshot = await get(userRef);
         if (snapshot.exists()) {
-          const data = snapshot.val();
-          setUserDetails({
-            name: data.name || '',
-            email: data.email || '',
-            phone: data.phone || '',
-          });
+          setUserDetails(snapshot.val());
         }
       } catch (error) {
         console.error('Error fetching user details:', error);
@@ -91,6 +86,8 @@ export default function BookAppointment() {
         setLoadingSlots(false);
       }
     };
+
+    // Removed fetchClosedDates and its usage since closedDates is not used
 
     fetchAvailableSlots();
   }, [selectedDate]);
@@ -131,10 +128,8 @@ export default function BookAppointment() {
       const dayName = days[selectedDate.getDay()];
       const slotKey = `${dayName}_${selectedTime.replace(':', '')}`;
       
-      // Book the slot first
       await bookSlot(slotKey, appointmentId);
       
-      // Create the appointment
       const success = await createAppointment({
         userId: currentUser.uid,
         serviceType: 'cosmetic',
@@ -147,32 +142,7 @@ export default function BookAppointment() {
       });
 
       if (success) {
-        // Send confirmation email
-        try {
-          const emailSent = await sendAppointmentEmail({
-            to_email: userDetails.email,
-            to_name: userDetails.name,
-            appointment_date: format(selectedDate, 'MMMM d, yyyy'),
-            appointment_time: selectedTime,
-            service_type: 'Cosmetic',
-            treatment: selectedTreatment,
-            status: 'Pending',
-            appointment_id: appointmentId, // Use the generated appointmentId
-            status_class: 'pending',
-            status_text: 'PENDING',
-            email: userDetails.email,
-          });
-
-          if (emailSent) {
-            toast.success('Appointment booked successfully! Confirmation email sent.');
-          } else {
-            toast.error('Appointment booked, but failed to send confirmation email.');
-          }
-        } catch (emailError) {
-          console.error('Email sending failed:', emailError);
-          toast.error('Appointment booked, but failed to send confirmation email.');
-        }
-
+        toast.success('Appointment booked successfully');
         navigate('/profile');
       } else {
         toast.error('Failed to create appointment. Please try again.');
@@ -314,4 +284,4 @@ export default function BookAppointment() {
       </div>
     </div>
   );
-}
+};;

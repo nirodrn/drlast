@@ -55,6 +55,6 @@ const detzConfig = {
     }
 };
 
-// detzConfig.connection.connect();
+detzConfig.connection.connect();
 
 module.exports = detzConfig;

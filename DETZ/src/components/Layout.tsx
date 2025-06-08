@@ -15,17 +15,8 @@ const navigation = [
     { name: 'Gallery', href: '/gallery' },
 ];
 
-type User = {
-    email?: string;
-    // add other properties if needed
-};
-
 export default function Layout() {
-    const { currentUser, logout, isAdmin } = useAuth() as {
-        currentUser: User | null;
-        logout: () => void;
-        isAdmin: boolean;
-    };
+    const { currentUser, logout, isAdmin } = useAuth();
 
     // Add admin navigation item if user is admin
     const fullNavigation = isAdmin 
@@ -59,12 +50,12 @@ export default function Layout() {
                                 </div>
                                 <div className="hidden sm:ml-6 sm:flex sm:items-center">
                                     {currentUser ? (
-                                        <Menu as="div" className="relative ml-3">
+                                        <Menu as="div\" className="relative ml-3">
                                             <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
                                                 <span className="sr-only">Open user menu</span>
                                                 <div className="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center">
                                                     <span className="text-primary-700 font-medium">
-                                                        {(currentUser.email && currentUser.email[0]?.toUpperCase()) || "U"}
+                                                        {currentUser.email?.[0].toUpperCase()}
                                                     </span>
                                                 </div>
                                             </Menu.Button>

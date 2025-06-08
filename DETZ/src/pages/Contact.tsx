@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState, RefCallback } from 'react';
-import { Phone, MapPin, CalendarCheck2, ArrowRight, ChevronDown, DivideIcon as LucideIcon } from "lucide-react";
+import { Phone, MapPin, Clock, CalendarCheck2, ArrowRight, ChevronDown, DivideIcon as LucideIcon } from "lucide-react";
 
 // AnimatedIcon component for a subtle hover effect on icons
 interface AnimatedIconProps {
-    icon: typeof LucideIcon;
+    icon: LucideIcon;
     className?: string;
 }
 const AnimatedIcon: React.FC<AnimatedIconProps> = ({ icon: IconComponent, className }) => {

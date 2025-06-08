@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import toast from 'react-hot-toast';
 import { Calendar, Clock, User, Phone, Mail, Check, X, Settings, Trash2, CalendarDays } from 'lucide-react';
-import { sendAppointmentStatusEmail } from '../lib/emailjs';
-import type { EmailParams } from '../utils/mailParams';
 
 interface Appointment {
   id: string;
@@ -59,16 +57,15 @@ export default function AdminDashboard() {
 
   const handleAppointmentAction = async (appointmentId: string, action: 'approve' | 'reject' | 'delete') => {
     try {
-      const appointment = appointments.find(apt => apt.id === appointmentId);
-      if (!appointment) return;
-
       if (action === 'delete') {
         await remove(ref(database, `appointments/${appointmentId}`));
         toast.success('Appointment deleted successfully');
       } else {
+        const appointment = appointments.find(apt => apt.id === appointmentId);
+        if (!appointment) return;
+
         const updates: { [key: string]: any } = {};
-        const newStatus = action === 'approve' ? 'approved' : 'rejected';
-        updates[`appointments/${appointmentId}/status`] = newStatus;
+        updates[`appointments/${appointmentId}/status`] = action === 'approve' ? 'approved' : 'rejected';
         
         if (action === 'reject' && appointment.slotKey) {
           updates[`slots/${appointment.slotKey}/isAvailable`] = true;
@@ -76,32 +73,7 @@ export default function AdminDashboard() {
         }
 
         await update(ref(database), updates);
-
-        // Send status update email using the new template
-        try {
-          const emailSent = await sendAppointmentStatusEmail({
-            to_email: appointment.userDetails.email,
-            to_name: appointment.userDetails.name,
-            appointment_date: format(parseISO(appointment.date), 'MMMM d, yyyy'),
-            appointment_time: appointment.time,
-            service_type: appointment.serviceType,
-            treatment: appointment.treatment,
-            status: newStatus,
-            appointment_id: appointmentId,
-            status_class: newStatus === 'approved' ? 'confirmed' : 'rejected',
-            status_text: newStatus === 'approved' ? 'CONFIRMED' : 'REJECTED',
-            email: appointment.userDetails.email, // if your template uses {{email}}
-          });
-
-          if (emailSent) {
-            toast.success(`Appointment ${action}d successfully! Status email sent.`);
-          } else {
-            toast.error(`Appointment ${action}d, but failed to send status email.`);
-          }
-        } catch (emailError) {
-          console.error('Status email sending failed:', emailError);
-          toast.error(`Appointment ${action}d, but failed to send status email.`);
-        }
+        toast.success(`Appointment ${action}d successfully`);
       }
       
       fetchAppointments();
@@ -205,11 +177,11 @@ export default function AdminDashboard() {
                         </div>
                         <div className="flex items-center space-x-3">
                           <Calendar className="h-5 w-5 text-gray-400" />
-                          <span className="">{formatDate(appointment.date)}</span>
+                          <span>{formatDate(appointment.date)}</span>
                         </div>
                         <div className="flex items-center space-x-3">
                           <Clock className="h-5 w-5 text-gray-400" />
-                          <span className="">{appointment.time}</span>
+                          <span>{appointment.time}</span>
                         </div>
                       </div>
 
