@@ -70,15 +70,14 @@ function MedicalServices() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               <a
-                href="https://www.google.com/search?client=ms-android-samsung-rvo1&sca_esv=f6bc877b3d7fa12d&hl=en-CA&cs=0&sxsrf=AE3TifNtYpV560Iw2JCZtCHC5PTBSZyJXg%3A1748873800363&kgmid=%2Fg%2F11dymr5048&q=Parkwood%20Medical%20Centre.%20Online%20Sign%20in.%20Do%20Not%20Visit%20Unless%20Advised&shndl=30&shem=apc15v2%2Cnpsc2&source=sh%2Fx%2Floc%2Fact%2Fm4%2F2#ebo=0"
+                href="https://g.co/kgs/MtpmHmo"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all cursor-pointer"
               >
                 <Clock className="h-8 w-8 text-blue-300 mx-auto mb-4" />
                 <h3 className="text-white font-semibold mb-2">Find Our Opening Times</h3>
-                <p className="text-blue-100">Click to view our current hours</p>
-                <p className="text-blue-100">and availability</p>
+                <p className="text-blue-100">Find out opening times- Checked to times of operation</p>
               </a>
               
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
@@ -87,12 +86,17 @@ function MedicalServices() {
                 <p className="text-blue-100">Tel: 416-342-0670</p>
               </div>
               
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+              <a
+                href="https://g.co/kgs/MtpmHmo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all cursor-pointer"
+              >
                 <MapPin className="h-8 w-8 text-blue-300 mx-auto mb-4" />
                 <h3 className="text-white font-semibold mb-2">Location</h3>
                 <p className="text-blue-100">1265 York Mills Rd, Unit F1-1</p>
                 <p className="text-blue-100">Toronto, ON M3A 1Z4</p>
-              </div>
+              </a>
             </div>
           </motion.div>
         </div>
@@ -201,6 +205,14 @@ function MedicalServices() {
       {/* Map Section */}
       <section id="contact" className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Do Not Visit Unless Advised
+            </h2>
+            <p className="text-lg text-gray-600">
+              Please contact us before visiting our location
+            </p>
+          </div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -210,7 +222,7 @@ function MedicalServices() {
           >
             <div className="grid md:grid-cols-2 gap-0">
               <div className="p-8 md:p-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Visit Us</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">Location Details</h2>
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <MapPin className="h-6 w-6 text-blue-500 mr-4 mt-1" />
@@ -236,7 +248,7 @@ function MedicalServices() {
               </div>
               <div className="h-[400px] md:h-full">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2881.598559759909!2d-79.32950902498543!3d43.760432445490586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d2645af41409%3A0xcc5e3c2bd903a8d4!2sDr.%20Shevanta%20Daniel!5e0!3m2!1sen!2slk!4v1734867885982!5m2!1sen!2slk"
+                  src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d180.09995378155293!2d-79.32706230474648!3d43.76041789604095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x89d4d2645af41409%3A0xd97a338978c452c5!2s1265%20York%20Mills%20Rd%20Unit%20F1-1%2C%20Toronto%2C%20ON%20M3A%201Z4%2C%20Canada!3m2!1d43.760424799999996!2d-79.3269523!5e0!3m2!1sen!2slk!4v1749399775297!5m2!1sen!2slk"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

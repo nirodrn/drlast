@@ -19,7 +19,6 @@
     "firebase": "^11.9.0",
     "framer-motion": "^12.4.7",
     "lucide-react": "^0.344.0",
-    "mailjs": "^0.1.6",
     "react": "^18.2.0",
     "react-big-calendar": "^1.8.7",
     "react-datepicker": "^6.2.0",

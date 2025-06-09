@@ -4,9 +4,7 @@ import { useState, useEffect } from "react";
 import {
     ArrowRight,
     Star,
-    Heart,
-    Syringe,
-    Zap,
+    
 } from "lucide-react";
 
 const services = [
@@ -207,7 +205,8 @@ export default function Home() {
                             </div>
                         </motion.div>
 
-                        {/* Right Treatment Highlights */}
+                        {/* Right Treatment Highlights - COMMENTED OUT */}
+                        {/* 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {[
                                 {
@@ -233,7 +232,7 @@ export default function Home() {
                             ].map((card, index) => {
                                 const Icon = card.icon;
                                 return (
-                                    <Link to="/cosmetic-services\" key={index}>
+                                    <Link to="/cosmetic-services" key={index}>
                                         <motion.div
                                             className="p-6 rounded-xl bg-white/80 hover:bg-blue-50/80 transition-all cursor-pointer border border-blue-100 shadow-md backdrop-blur-md"
                                             whileHover={{ scale: 1.03 }}
@@ -251,6 +250,7 @@ export default function Home() {
                                 );
                             })}
                         </div>
+                        */}
                     </div>
                 </div>
             </section>

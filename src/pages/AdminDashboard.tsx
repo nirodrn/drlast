@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import toast from 'react-hot-toast';
 import { Calendar, Clock, User, Phone, Mail, Check, X, Settings, Trash2, CalendarDays } from 'lucide-react';
-import { sendAppointmentStatusEmail } from '../lib/emailjs';
-import type { EmailParams } from '../utils/mailParams';
+// Temporarily disabled email sending
+// import { sendAppointmentStatusEmail } from '../lib/emailjs';
+// import type { EmailParams } from '../utils/mailParams';
 
 interface Appointment {
   id: string;
@@ -77,7 +78,8 @@ export default function AdminDashboard() {
 
         await update(ref(database), updates);
 
-        // Send status update email using the new template
+        // Email sending temporarily disabled
+        /*
         try {
           const emailSent = await sendAppointmentStatusEmail({
             to_email: appointment.userDetails.email,
@@ -90,7 +92,7 @@ export default function AdminDashboard() {
             appointment_id: appointmentId,
             status_class: newStatus === 'approved' ? 'confirmed' : 'rejected',
             status_text: newStatus === 'approved' ? 'CONFIRMED' : 'REJECTED',
-            email: appointment.userDetails.email, // if your template uses {{email}}
+            email: appointment.userDetails.email,
           });
 
           if (emailSent) {
@@ -102,6 +104,9 @@ export default function AdminDashboard() {
           console.error('Status email sending failed:', emailError);
           toast.error(`Appointment ${action}d, but failed to send status email.`);
         }
+        */
+        
+        toast.success(`Appointment ${action}d successfully!`);
       }
       
       fetchAppointments();

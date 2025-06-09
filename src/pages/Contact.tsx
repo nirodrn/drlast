@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, RefCallback } from 'react';
-import { Phone, MapPin, CalendarCheck2, ArrowRight, ChevronDown, DivideIcon as LucideIcon } from "lucide-react";
+import { Phone, MapPin,  ChevronDown, DivideIcon as LucideIcon } from "lucide-react";
 
 // AnimatedIcon component for a subtle hover effect on icons
 interface AnimatedIconProps {
@@ -51,7 +51,6 @@ const Contact: React.FC = () => {
     const [setCard1Ref, card1Entry] = useIntersectionObserver({ threshold: 0.2 });
     const [setCard2Ref, card2Entry] = useIntersectionObserver({ threshold: 0.2 });
     const [setCard3Ref, card3Entry] = useIntersectionObserver({ threshold: 0.2 });
-    const [setBookingCardRef, bookingCardEntry] = useIntersectionObserver({ threshold: 0.2 });
     const [setMapContainerRef, mapContainerEntry] = useIntersectionObserver({ threshold: 0.2 });
 
     const contactInfo = [
@@ -75,13 +74,11 @@ const Contact: React.FC = () => {
         },
         {
             icon: MapPin,
-            title: "Visit Our Clinic",
+            title: "Email Us",
             details: (
-                <>
-                    1265 York Mills Rd,
-                    <br />
-                    Toronto, Ontario, M3A 1Z4
-                </>
+                <a href="mailto:Info@drdanielesthetixs.com" className="hover:underline">
+                    Info@drdanielesthetixs.com
+                </a>
             ),
             bgColor: "bg-sky-50",
             iconColor: "text-sky-600",
@@ -174,45 +171,26 @@ const Contact: React.FC = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Parkwood Medical Centre Booking Card */}
-                <div
-                    ref={setBookingCardRef}
-                    style={getAnimationStyle(bookingCardEntry, 0)}
-                    className="mt-12 bg-gradient-to-r from-sky-500 to-indigo-600 rounded-xl p-8 shadow-xl flex flex-col md:flex-row items-center justify-between text-white hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-[1.02] text-center md:text-left"
-                >
-                    <div className="flex items-center mb-6 md:mb-0">
-                        <div className="p-3 bg-white/20 rounded-full mr-5 shrink-0">
-                            <CalendarCheck2 className="w-8 h-8 text-white" />
-                        </div>
-                        <div>
-                            <h3 className="text-2xl font-semibold mb-1">Book Medical Appointment</h3>
-                            <p className="text-sky-100 text-sm max-w-md">
-                                For medical needs, book directly via Parkwood Medical Centre's secure online portal.
-                            </p>
-                        </div>
-                    </div>
-                    <a
-                        href="https://parkwoodmc.kai-oscar.com/kaiemr/app/components/onlinebooking/#!/appointmentInfo"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center px-6 py-3 bg-white hover:bg-slate-100 text-sky-600 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-out transform hover:scale-105 whitespace-nowrap mt-4 md:mt-0"
-                    >
-                        Book via Parkwood <ArrowRight className="ml-2 w-5 h-5" />
-                    </a>
-                </div>
             </section>
 
             {/* Map Section with Animation */}
             <section className="py-16 sm:py-24 bg-slate-100">
-                <div className="max-w-6xl mx-auto px-4 lg:px-8 ">
+                <div className="max-w-6xl mx-auto px-4 lg:px-8">
+                    <div className="text-center mb-8">
+                        <h2 className="text-3xl font-bold text-slate-700 mb-4">
+                            Do Not Visit Unless Advised
+                        </h2>
+                        <p className="text-lg text-slate-600">
+                            Please contact us before visiting our location
+                        </p>
+                    </div>
                     <div
                         ref={setMapContainerRef}
                         style={getAnimationStyle(mapContainerEntry)}
                         className="bg-white rounded-xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-500 ease-out"
                     >
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2881.598559759909!2d-79.32950902498543!3d43.760432445490586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d2645af41409%3A0xcc5e3c2bd903a8d4!2sDr.%20Shevanta%20Daniel!5e0!3m2!1sen!2slk!4v1734867885982!5m2!1sen!2slk"
+                            src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d180.09995378155293!2d-79.32706230474648!3d43.76041789604095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x89d4d2645af41409%3A0xd97a338978c452c5!2s1265%20York%20Mills%20Rd%20Unit%20F1-1%2C%20Toronto%2C%20ON%20M3A%201Z4%2C%20Canada!3m2!1d43.760424799999996!2d-79.3269523!5e0!3m2!1sen!2slk!4v1749399775297!5m2!1sen!2slk"
                             className="w-full h-[450px] border-0"
                             allowFullScreen
                             loading="lazy"
