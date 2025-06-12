@@ -183,6 +183,88 @@ export function About() {
           </div>
         </div>
       </div>
+      {/* Location Section with Google Maps */}
+      <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold tracking-tight text-gray-900 mb-6">
+              Our Location
+            </h2>
+            <p className="text-lg text-gray-600">
+              Visit us at our convenient location in Toronto
+            </p>
+          </div>
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="grid md:grid-cols-2 gap-0">
+              {/* Location Details */}
+              <div className="p-8 md:p-12 bg-gradient-to-br from-blue-50 to-indigo-50">
+                <h3 className="text-2xl font-bold text-gray-900 mb-8">Visit Us</h3>
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
+                      <p className="text-gray-600">
+                        1265 York Mills Rd, Unit F1-1<br />
+                        Toronto, ON M3A 1Z4<br />
+                        Canada
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Contact</h4>
+                      <p className="text-gray-600">
+                        Aesthetic: 416-449-0936<br />
+                        Medical: 416-342-0670
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-8">
+                  <a
+                    href="https://maps.app.goo.gl/TWecXXDJfVnAm2Zn7?g_st=aw"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Open in Google Maps
+                  </a>
+                </div>
+              </div>
+              
+              {/* Embedded Map */}
+              <div className="h-[400px] md:h-full">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2881.5987449702357!2d-79.3269341!3d43.760428600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d2645af41409%3A0xcc5e3c2bd903a8d4!2sDr.%20Shevanta%20Daniel!5e0!3m2!1sen!2slk!4v1749585745991!5m2!1sen!2slk"
+                  width="600"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Dr. Daniel Esthetixs Location"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* General Information Section with Modern Cards */}
       <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 py-11 mb-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

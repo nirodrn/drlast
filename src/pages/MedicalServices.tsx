@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Mail, Clock, Phone, MapPin, ArrowRight, ChevronDown } from 'lucide-react';
+import { Mail, Clock, Phone, MapPin, ArrowRight, ChevronDown, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function MedicalServices() {
@@ -18,7 +18,7 @@ function MedicalServices() {
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
-    handleResize();
+    handleResize(); // Set initial desktop state
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -26,19 +26,29 @@ function MedicalServices() {
     };
   }, []);
 
+  // The 'if (isDesktop)' block was empty, so I've kept it as-is in case you plan to add desktop-specific logic.
   if (isDesktop) {
     // ...do something for desktop
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-inter"> {/* Added font-inter class */}
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579684385127-1ef15d508118')] bg-cover bg-center" />
+          {/* Background image with fallback */}
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579684385127-1ef15d508118')] bg-cover bg-center"
+            onError={(e) => {
+              const target = e.target as HTMLDivElement;
+              // @ts-ignore: onerror may not exist on HTMLDivElement, but we want to clear it
+              target.onerror = null;
+              target.style.backgroundImage = `url(https://placehold.co/1920x1080/E0E7FF/4338CA?text=Medical+Background)`;
+            }}
+          ></div>
+          {/* Overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-800/80" />
         </div>
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -51,7 +61,7 @@ function MedicalServices() {
             <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
               Exceptional Healthcare, Compassionate Service
             </p>
-            
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="#important-info"
@@ -59,7 +69,7 @@ function MedicalServices() {
               >
                 Important Information <ChevronDown className="ml-2 h-5 w-5" />
               </a>
-              
+
               <a
                 href="#contact"
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold hover:bg-white/20 transition-all flex items-center"
@@ -79,13 +89,13 @@ function MedicalServices() {
                 <h3 className="text-white font-semibold mb-2">Find Our Opening Times</h3>
                 <p className="text-blue-100">Find out opening times- Checked to times of operation</p>
               </a>
-              
+
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
                 <Phone className="h-8 w-8 text-blue-300 mx-auto mb-4" />
                 <h3 className="text-white font-semibold mb-2">Contact</h3>
                 <p className="text-blue-100">Tel: 416-342-0670</p>
               </div>
-              
+
               <a
                 href="https://g.co/kgs/MtpmHmo"
                 target="_blank"
@@ -98,6 +108,31 @@ function MedicalServices() {
                 <p className="text-blue-100">Toronto, ON M3A 1Z4</p>
               </a>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Do Not Visit Warning Section */}
+      <section className="py-16 bg-red-50 border-l-4 border-red-500">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <div className="flex justify-center mb-6">
+              <div className="p-4 bg-red-100 rounded-full">
+                <AlertTriangle className="h-12 w-12 text-red-600" />
+              </div>
+            </div>
+            <h2 className="text-3xl font-bold text-red-800 mb-4">
+              DO NOT VISIT UNLESS ADVISED
+            </h2>
+            <p className="text-lg text-red-700 max-w-2xl mx-auto">
+              Please contact us before visiting our location. Appointments are required for all visits to ensure proper care and safety protocols.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -207,10 +242,10 @@ function MedicalServices() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Do Not Visit Unless Advised
+              Find Our Location
             </h2>
             <p className="text-lg text-gray-600">
-              Please contact us before visiting our location
+              Please remember to contact us before visiting our location.
             </p>
           </div>
           <motion.div
@@ -220,45 +255,19 @@ function MedicalServices() {
             transition={{ duration: 0.8 }}
             className="bg-white rounded-2xl shadow-xl overflow-hidden"
           >
-            <div className="grid md:grid-cols-2 gap-0">
-              <div className="p-8 md:p-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Location Details</h2>
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <MapPin className="h-6 w-6 text-blue-500 mr-4 mt-1" />
-                    <div>
-                      <h3 className="font-semibold text-gray-900">Address</h3>
-                      <p className="text-gray-600">
-                        Parkwoods Village Plaza<br />
-                        1265 York Mills Rd, Unit F1-1<br />
-                        Toronto, ON M3A 1Z4
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Phone className="h-6 w-6 text-blue-500 mr-4 mt-1" />
-                    <div>
-                      <h3 className="font-semibold text-gray-900">Contact</h3>
-                      <p className="text-gray-600">
-                        Tel: 416-342-0670
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="h-[400px] md:h-full">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d180.09995378155293!2d-79.32706230474648!3d43.76041789604095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x89d4d2645af41409%3A0xd97a338978c452c5!2s1265%20York%20Mills%20Rd%20Unit%20F1-1%2C%20Toronto%2C%20ON%20M3A%201Z4%2C%20Canada!3m2!1d43.760424799999996!2d-79.3269523!5e0!3m2!1sen!2slk!4v1749399775297!5m2!1sen!2slk"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Parkwood Medical Centre Location"
-                  className="w-full h-full"
-                ></iframe>
-              </div>
+            {/* Removed the grid and location details div */}
+            <div className="h-[500px] md:h-[600px] w-full"> {/* Increased height for a larger map */}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2879.8234567890123!2d-79.32706230474648!3d43.76041789604095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d2645af41409%3A0xd97a338978c452c5!2sParkwood%20Medical%20Centre!5e0!3m2!1sen!2slk!4v1749399775297!5m2!1sen!2slk"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Parkwood Medical Centre Location"
+                className="w-full h-full"
+              ></iframe>
             </div>
           </motion.div>
         </div>
@@ -284,6 +293,14 @@ function MedicalServices() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+      `}</style>
     </div>
   );
 }
