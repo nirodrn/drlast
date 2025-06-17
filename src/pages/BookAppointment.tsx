@@ -9,9 +9,9 @@ import { database } from '../lib/firebase';
 import { ref, get } from 'firebase/database';
 import toast from 'react-hot-toast';
 import { getAvailableSlots, bookSlot } from '../lib/slots';
-import { v4 as uuidv4 } from 'uuid';
+
 import { Loader, AlertCircle, User, Phone, Mail, MapPin, Calendar } from 'lucide-react';
-import { sendAppointmentEmail } from '../lib/emailjs';
+import { sendAppointmentStatusEmail } from '../lib/emailjs';
 import type { TimeSlot } from '../lib/slots';
 
 interface Treatment {
@@ -240,7 +240,7 @@ export default function BookAppointment() {
       if (success) {
         // Send confirmation email using new template
         try {
-          const emailSent = await sendAppointmentEmail({
+          const emailSent = await sendAppointmentStatusEmail({
             to_email: userDetails.email,
             to_name: userDetails.name,
             appointment_date: format(selectedDate, 'MMMM d, yyyy'),
@@ -250,6 +250,7 @@ export default function BookAppointment() {
             status: 'pending',
             appointment_id: appointmentId,
             email: userDetails.email, // <-- This is required!
+            action_url: 'https://drdanielesthetix.com/profile', // NEW
           });
 
           if (emailSent) {

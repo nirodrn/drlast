@@ -72,7 +72,7 @@ export const sendAppointmentEmail = async (params: EmailParams): Promise<boolean
     status_text,
     status_color,
     message_body: messageBody,
-    action_url: params.action_url || 'https://danielesthetixs.web.app/profile',
+    action_url: params.action_url || 'https://drdanielesthetix.com/profile',
     email: params.email, // For Reply-To
   };
 

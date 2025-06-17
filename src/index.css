@@ -5,6 +5,11 @@
 @layer base {
   html {
     @apply antialiased;
+    scroll-behavior: auto; /* Disable smooth scrolling for instant scroll to top */
+  }
+  
+  body {
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
 }
 
@@ -20,4 +25,27 @@
   .btn-secondary {
     @apply bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
   }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Ensure scroll restoration works properly */
+html {
+  scroll-restoration: manual;
 }

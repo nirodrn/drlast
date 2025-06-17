@@ -88,7 +88,7 @@ export default function AdminDashboard() {
             status: newStatus,
             appointment_id: appointmentId,
             email: appointment.userDetails.email, // <-- Required for Reply-To and template
-            action_url: 'https://danielesthetixs.web.app/profile', // Optional, but recommended
+            action_url: 'https://drdanielesthetix.com/profile', // <-- Updated link
           });
 
           if (emailSent) {
@@ -157,6 +157,14 @@ export default function AdminDashboard() {
                   <Settings className="h-4 w-4 mr-2" />
                   Manage Time Slots
                 </Link>
+                <a
+                  href="https://drdanielesthetixs-admin.web.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-800 hover:bg-gray-900"
+                >
+                  Advanced Management
+                </a>
               </div>
             </div>
 

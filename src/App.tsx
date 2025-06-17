@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Suspense, lazy, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import LoadingSpinner from './components/LoadingSpinner';
 import ScrollRestoration from './components/scroll-restoration';
@@ -24,6 +24,13 @@ const TreatmentPage = lazy(() => import('./components/TreatmentPage'));
 const CalendarView = lazy(() => import('./pages/CalendarView'));
 
 export default function App() {
+  const location = useLocation();
+
+  // Additional scroll restoration for route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <>
       <ScrollRestoration />
