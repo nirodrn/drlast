@@ -144,7 +144,18 @@ export default function BookAppointment() {
     
     return Object.entries(availableSlots)
       .filter(([key, slot]) => {
-        if (!key.startsWith(day) || !slot.isAvailable || slot.appointmentId) {
+        // Check if slot belongs to the selected day
+        if (!key.startsWith(day)) {
+          return false;
+        }
+        
+        // Check if slot is available
+        if (!slot.isAvailable) {
+          return false;
+        }
+        
+        // Check if slot has an appointment (exclude null, 'none', and actual appointment IDs)
+        if (slot.appointmentId && slot.appointmentId !== 'none') {
           return false;
         }
         
@@ -199,6 +210,18 @@ export default function BookAppointment() {
       const dayName = days[selectedDate.getDay()];
       const slotKey = `${dayName}_${selectedTime.replace(':', '')}`;
       
+      // Check if slot is still available before booking
+      const currentSlots = await getAvailableSlots() as Record<string, TimeSlot>;
+      const targetSlot = currentSlots[slotKey];
+      
+      if (!targetSlot || !targetSlot.isAvailable || (targetSlot.appointmentId && targetSlot.appointmentId !== 'none')) {
+        toast.error('This time slot is no longer available. Please select another time.');
+        setSelectedTime('');
+        // Refresh available slots
+        setAvailableSlots(currentSlots);
+        return;
+      }
+      
       // Book the slot first
       await bookSlot(slotKey, appointmentId);
       
@@ -252,6 +275,13 @@ export default function BookAppointment() {
         toast.error('Failed to book appointment. Please try again.');
       }
       setSelectedTime('');
+      // Refresh available slots after error
+      try {
+        const refreshedSlots = await getAvailableSlots() as Record<string, TimeSlot>;
+        setAvailableSlots(refreshedSlots);
+      } catch (refreshError) {
+        console.error('Error refreshing slots:', refreshError);
+      }
     } finally {
       setProcessing(false);
     }
@@ -377,7 +407,10 @@ export default function BookAppointment() {
               </label>
               <DatePicker
                 selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+                onChange={(date) => {
+                  setSelectedDate(date);
+                  setSelectedTime(''); // Reset selected time when date changes
+                }}
                 minDate={new Date()}
                 maxDate={addDays(new Date(), 30)}
                 dateFormat="MMMM d, yyyy"

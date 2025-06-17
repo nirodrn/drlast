@@ -61,26 +61,54 @@ export default function AdminTimeManagement() {
 
       const updates: { [key: string]: any } = {};
 
-      if (!slot.isAvailable && slot.appointmentId) {
-        // Slot is disabled and booked, so enabling should clear booking
+      if (!slot.isAvailable) {
+        // Enabling a disabled slot - always clear appointment data
         updates[`slots/${slotKey}/isAvailable`] = true;
         updates[`slots/${slotKey}/appointmentId`] = null;
+        
+        // If there was an appointment, we should also remove it from appointments table
+        if (slot.appointmentId && slot.appointmentId !== 'none') {
+          // Find and remove the appointment
+          const appointmentsRef = ref(database, 'appointments');
+          const appointmentsSnapshot = await get(appointmentsRef);
+          
+          if (appointmentsSnapshot.exists()) {
+            const appointments = appointmentsSnapshot.val();
+            // Find appointment with matching slot key or appointment ID
+            for (const [appointmentId, appointmentData] of Object.entries(appointments)) {
+              const appointment = appointmentData as any;
+              if (appointment.slotKey === slotKey || appointmentId === slot.appointmentId) {
+                updates[`appointments/${appointmentId}`] = null; // Remove appointment
+                break;
+              }
+            }
+          }
+        }
+        
+        toast.success('Time slot enabled and appointment data cleared');
       } else {
-        // Just toggle isAvailable
-        updates[`slots/${slotKey}/isAvailable`] = !slot.isAvailable;
+        // Disabling an available slot
+        updates[`slots/${slotKey}/isAvailable`] = false;
+        toast.success('Time slot disabled');
       }
 
       await update(ref(database), updates);
       
+      // Update local state immediately
       setTimeSlots(prev => ({
         ...prev,
         [slotKey]: {
           ...prev[slotKey],
-          isAvailable: !prev[slotKey].isAvailable
+          isAvailable: !prev[slotKey].isAvailable,
+          appointmentId: !prev[slotKey].isAvailable ? null : prev[slotKey].appointmentId
         }
       }));
 
-      toast.success('Time slot updated successfully');
+      // Refresh data from database to ensure consistency
+      setTimeout(() => {
+        fetchTimeSlots();
+      }, 500);
+
     } catch (error) {
       console.error('Error updating time slot:', error);
       toast.error('Failed to update time slot');
@@ -214,7 +242,12 @@ export default function AdminTimeManagement() {
                   </button>
                 </div>
                 <div className="text-xs text-gray-500">
-                  {slot.appointmentId ? `Booked (ID: ${slot.appointmentId})` : 'No appointment'}
+                  {slot.appointmentId && slot.appointmentId !== 'none' 
+                    ? `Booked (ID: ${slot.appointmentId})` 
+                    : 'No appointment'}
+                </div>
+                <div className="text-xs text-gray-400 mt-1">
+                  Status: {slot.isAvailable ? 'Available' : 'Disabled'}
                 </div>
               </div>
             ))}
