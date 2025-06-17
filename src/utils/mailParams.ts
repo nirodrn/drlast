@@ -1,6 +1,6 @@
 /**
- * EmailParams type for sending appointment status emails via EmailJS.
- * Make sure these fields match your EmailJS template variables.
+ * EmailParams type for sending appointment emails via EmailJS.
+ * Updated to work with the new unified template.
  */
 export type EmailParams = {
   to_email: string;
@@ -11,7 +11,24 @@ export type EmailParams = {
   treatment: string;
   status: string;
   appointment_id: string;
-  status_class: string;
-  status_text: string;
+  email: string;
+  action_url?: string;
+};
+
+/**
+ * Extended template params that match the EmailJS template exactly
+ */
+export type EmailTemplateParams = {
+  to_email: string;
+  to_name: string;
+  appointment_id: string;
+  appointment_date: string;
+  appointment_time: string;
+  service_type: string;
+  treatment: string;
+  status_text: 'CONFIRMED' | 'PENDING' | 'REJECTED';
+  status_color: string;
+  message_body: string;
+  action_url?: string;
   email: string;
 };

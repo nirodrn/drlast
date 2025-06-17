@@ -60,7 +60,15 @@ export default function AdminTimeManagement() {
       if (!slot) return;
 
       const updates: { [key: string]: any } = {};
-      updates[`slots/${slotKey}/isAvailable`] = !slot.isAvailable;
+
+      if (!slot.isAvailable && slot.appointmentId) {
+        // Slot is disabled and booked, so enabling should clear booking
+        updates[`slots/${slotKey}/isAvailable`] = true;
+        updates[`slots/${slotKey}/appointmentId`] = null;
+      } else {
+        // Just toggle isAvailable
+        updates[`slots/${slotKey}/isAvailable`] = !slot.isAvailable;
+      }
 
       await update(ref(database), updates);
       
@@ -202,7 +210,7 @@ export default function AdminTimeManagement() {
                         : 'bg-red-600 text-white hover:bg-red-700'
                     } transition-colors`}
                   >
-                    {slot.isAvailable ? 'Available' : 'Unavailable'}
+                    {slot.isAvailable ? 'Disable' : 'Enable'}
                   </button>
                 </div>
                 <div className="text-xs text-gray-500">

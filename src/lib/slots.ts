@@ -87,7 +87,17 @@ export const isDateFullyBooked = async (date: Date): Promise<boolean> => {
 
     if (typeof slots !== 'object' || slots === null) return false;
 
-    const daySlots = Object.entries(slots).filter(([key]) => key.startsWith(dayName));
+    const daySlots = Object.entries(slots).filter(([key, slot]) => {
+      const typedSlot = slot as TimeSlot;
+      if (
+        !key.startsWith(dayName) ||
+        !typedSlot.isAvailable ||
+        typedSlot.appointmentId
+      ) {
+        return false;
+      }
+      return true;
+    });
     
     return (
       daySlots.length > 0 &&

@@ -11,8 +11,7 @@ import toast from 'react-hot-toast';
 import { getAvailableSlots, bookSlot } from '../lib/slots';
 import { v4 as uuidv4 } from 'uuid';
 import { Loader, AlertCircle, User, Phone, Mail, MapPin, Calendar } from 'lucide-react';
-// Temporarily disabled email sending
-// import { sendAppointmentEmail } from '../lib/emailjs';
+import { sendAppointmentEmail } from '../lib/emailjs';
 import type { TimeSlot } from '../lib/slots';
 
 interface Treatment {
@@ -195,7 +194,7 @@ export default function BookAppointment() {
     setProcessing(true);
     try {
       const formattedDate = format(selectedDate, 'yyyy-MM-dd');
-      const appointmentId = uuidv4();
+      const appointmentId = generateAppointmentId(selectedDate, selectedTime);
       const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
       const dayName = days[selectedDate.getDay()];
       const slotKey = `${dayName}_${selectedTime.replace(':', '')}`;
@@ -216,8 +215,7 @@ export default function BookAppointment() {
       });
 
       if (success) {
-        // Email sending temporarily disabled
-        /*
+        // Send confirmation email using new template
         try {
           const emailSent = await sendAppointmentEmail({
             to_email: userDetails.email,
@@ -226,25 +224,22 @@ export default function BookAppointment() {
             appointment_time: selectedTime,
             service_type: 'Cosmetic',
             treatment: selectedTreatment,
-            status: 'Pending',
+            status: 'pending',
             appointment_id: appointmentId,
-            status_class: 'pending',
-            status_text: 'PENDING',
-            email: userDetails.email,
+            email: userDetails.email, // <-- This is required!
           });
 
           if (emailSent) {
             toast.success('Appointment booked successfully! Confirmation email sent.');
           } else {
-            toast.error('Appointment booked, but failed to send confirmation email.');
+            toast.success('Appointment booked successfully!');
+            console.warn('Failed to send confirmation email, but appointment was created');
           }
         } catch (emailError) {
           console.error('Email sending failed:', emailError);
-          toast.error('Appointment booked, but failed to send confirmation email.');
+          toast.success('Appointment booked successfully!');
         }
-        */
-        
-        toast.success('Appointment booked successfully!');
+
         navigate('/profile');
       } else {
         toast.error('Failed to create appointment. Please try again.');
@@ -457,4 +452,15 @@ export default function BookAppointment() {
       </div>
     </div>
   );
+}
+
+function generateAppointmentId(date: Date, time: string): string {
+  // Format: YYYYMMDD-HHMM-<4char random>
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  const yyyy = date.getFullYear();
+  const mm = pad(date.getMonth() + 1);
+  const dd = pad(date.getDate());
+  const [hh, min] = time.split(':');
+  const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `${yyyy}${mm}${dd}-${hh}${min}-${random}`;
 }
