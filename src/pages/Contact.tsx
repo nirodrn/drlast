@@ -60,12 +60,34 @@ const Contact: React.FC = () => {
                             Contact us today to schedule your consultation.
                         </p>
                         <a
-                            href="#contact-info"
+                            href="#appointment-warning"
                             className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                         >
-                            Contact Us Now
+                            Important Information
                             <ChevronDown className="ml-2 w-5 h-5" />
                         </a>
+                    </div>
+                </div>
+            </section>
+
+            {/* IMPORTANT: Do Not Visit Warning Section - NOW FIRST */}
+            <section id="appointment-warning" className="py-20 bg-red-50 border-l-4 border-red-500">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div
+                        ref={setWarningRef}
+                        className="text-center"
+                    >
+                        <div className="flex justify-center mb-6">
+                            <div className="p-6 bg-red-100 rounded-full">
+                                <AlertTriangle className="h-16 w-16 text-red-600" />
+                            </div>
+                        </div>
+                        <h2 className="text-4xl font-bold text-red-800 mb-6">
+                            DO NOT VISIT WITHOUT APPOINTMENT
+                        </h2>
+                        <p className="text-xl text-red-700 max-w-3xl mx-auto leading-relaxed">
+                            Please contact us before visiting our location. All visits require prior appointments to ensure proper care and safety protocols.
+                        </p>
                     </div>
                 </div>
             </section>
@@ -123,26 +145,6 @@ const Contact: React.FC = () => {
                                     416-342-0670
                                 </a>
                             </div>
-                        </div>
-                    </div>
-
-                    {/* Do Not Visit Warning */}
-                    <div
-                        ref={setWarningRef}
-                        className="bg-red-50 border-l-4 border-red-500 rounded-lg p-8 mb-20 max-w-4xl mx-auto"
-                    >
-                        <div className="flex items-center justify-center mb-6">
-                            <div className="p-4 bg-red-100 rounded-full">
-                                <AlertTriangle className="h-12 w-12 text-red-600" />
-                            </div>
-                        </div>
-                        <div className="text-center">
-                            <h3 className="text-2xl font-bold text-red-800 mb-4">
-                                DO NOT VISIT WITHOUT APPOINTMENT
-                            </h3>
-                            <p className="text-lg text-red-700 max-w-2xl mx-auto">
-                                Please contact us before visiting our location. All visits require prior appointments to ensure proper care and safety protocols.
-                            </p>
                         </div>
                     </div>
 

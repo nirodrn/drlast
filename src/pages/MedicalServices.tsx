@@ -64,8 +64,8 @@ function MedicalServices() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="#important-info"
-                className="px-8 py-4 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition-all transform hover:scale-105 flex items-center"
+                href="#appointment-warning"
+                className="px-8 py-4 bg-red-500 text-white rounded-full font-semibold hover:bg-red-600 transition-all transform hover:scale-105 flex items-center"
               >
                 Important Information <ChevronDown className="ml-2 h-5 w-5" />
               </a>
@@ -112,8 +112,8 @@ function MedicalServices() {
         </div>
       </section>
 
-      {/* Do Not Visit Warning Section */}
-      <section className="py-16 bg-red-50 border-l-4 border-red-500">
+      {/* CRITICAL WARNING SECTION - First thing users see */}
+      <section id="appointment-warning" className="py-20 bg-red-50 border-l-4 border-red-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -123,22 +123,33 @@ function MedicalServices() {
             className="text-center"
           >
             <div className="flex justify-center mb-6">
-              <div className="p-4 bg-red-100 rounded-full">
-                <AlertTriangle className="h-12 w-12 text-red-600" />
+              <div className="p-6 bg-red-100 rounded-full">
+                <AlertTriangle className="h-16 w-16 text-red-600" />
               </div>
             </div>
-            <h2 className="text-3xl font-bold text-red-800 mb-4">
+            <h2 className="text-4xl font-bold text-red-800 mb-6">
               DO NOT VISIT UNLESS ADVISED
             </h2>
-            <p className="text-lg text-red-700 max-w-2xl mx-auto">
-              Please contact us before visiting our location. Appointments are required for all visits to ensure proper care and safety protocols.
+            <p className="text-xl text-red-700 max-w-3xl mx-auto leading-relaxed mb-8">
+              Please contact us before visiting our location. All visits require prior appointments to ensure proper care and safety protocols.
             </p>
+            
+            {/* Additional Warning Card */}
+            <div className="max-w-2xl mx-auto bg-red-100 border-2 border-red-300 rounded-xl p-6">
+              <div className="flex items-center justify-center mb-4">
+                <AlertTriangle className="h-8 w-8 text-red-600 mr-3" />
+                <h3 className="text-xl font-bold text-red-800">Appointment Required</h3>
+              </div>
+              <p className="text-red-700 font-medium">
+                No walk-ins accepted. Please call 416-342-0670 to schedule your appointment before visiting.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Important Information Section */}
-      <section id="important-info" className="py-20 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

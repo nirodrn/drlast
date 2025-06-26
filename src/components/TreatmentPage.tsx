@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { database } from '../lib/firebase';
 import { ref, get } from 'firebase/database';
-import { Phone, ChevronDown, X, ArrowRight } from 'lucide-react';
+import { Phone, ChevronDown, X, ArrowRight, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface TreatmentData {
@@ -108,10 +108,16 @@ const ImageModal: React.FC<ImageModalProps> = ({ image, onClose }) => {
 
 export const TreatmentPage: React.FC = () => {
   const { treatmentId } = useParams<{ treatmentId: string }>();
+  const navigate = useNavigate();
   const [treatmentData, setTreatmentData] = useState<TreatmentData | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Force scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const fetchTreatmentData = async () => {
@@ -154,6 +160,12 @@ export const TreatmentPage: React.FC = () => {
     fetchTreatmentData();
   }, [treatmentId]);
 
+  const handleBackClick = () => {
+    // Force scroll to top before navigating back
+    window.scrollTo(0, 0);
+    navigate(-1);
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -172,6 +184,12 @@ export const TreatmentPage: React.FC = () => {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900">Treatment not found</h2>
           <p className="mt-2 text-gray-600">The requested treatment could not be found.</p>
+          <button
+            onClick={handleBackClick}
+            className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Go Back
+          </button>
         </div>
       </div>
     );
@@ -179,6 +197,17 @@ export const TreatmentPage: React.FC = () => {
 
   return (
     <div className="w-full min-h-screen bg-white">
+      {/* Back Button - Fixed at top */}
+      <div className="sticky top-0 z-20 bg-white/90 backdrop-blur-sm border-b border-gray-200 p-4">
+        <button
+          onClick={handleBackClick}
+          className="flex items-center text-blue-600 hover:text-blue-800 transition-colors font-medium"
+        >
+          <ArrowLeft className="w-5 h-5 mr-2" />
+          Back to Services
+        </button>
+      </div>
+
       {/* Hero Section */}
       <motion.section 
         className="relative h-[60vh] flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-400"
