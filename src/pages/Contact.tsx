@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, RefCallback } from 'react';
-import { Phone, MapPin, ChevronDown, Clock, AlertTriangle } from "lucide-react";
+import { Phone, MapPin, Clock, AlertTriangle, Calendar, Mail } from "lucide-react";
 
 // Custom hook to detect if an element is in viewport
 type IntersectionObserverHook = [
@@ -59,19 +59,12 @@ const Contact: React.FC = () => {
                             Ready to begin your journey? We're here to help you every step of the way. 
                             Contact us today to schedule your consultation.
                         </p>
-                        <a
-                            href="#appointment-warning"
-                            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-                        >
-                            Important Information
-                            <ChevronDown className="ml-2 w-5 h-5" />
-                        </a>
                     </div>
                 </div>
             </section>
 
-            {/* IMPORTANT: Do Not Visit Warning Section - NOW FIRST */}
-            <section id="appointment-warning" className="py-20 bg-red-50 border-l-4 border-red-500">
+            {/* CRITICAL WARNING SECTION - Prominently displayed */}
+            <section className="py-16 bg-red-50 border-l-4 border-red-500">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div
                         ref={setWarningRef}
@@ -85,15 +78,26 @@ const Contact: React.FC = () => {
                         <h2 className="text-4xl font-bold text-red-800 mb-6">
                             DO NOT VISIT WITHOUT APPOINTMENT
                         </h2>
-                        <p className="text-xl text-red-700 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-xl text-red-700 max-w-3xl mx-auto leading-relaxed mb-8">
                             Please contact us before visiting our location. All visits require prior appointments to ensure proper care and safety protocols.
                         </p>
+                        
+                        {/* Additional Warning Card */}
+                        <div className="max-w-2xl mx-auto bg-red-100 border-2 border-red-300 rounded-xl p-6">
+                            <div className="flex items-center justify-center mb-4">
+                                <Calendar className="h-8 w-8 text-red-600 mr-3" />
+                                <h3 className="text-xl font-bold text-red-800">Appointment Required</h3>
+                            </div>
+                            <p className="text-red-700 font-medium">
+                                No walk-ins accepted. Please call us to schedule your appointment before visiting.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* Contact Information Section */}
-            <section id="contact-info" className="py-20">
+            <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div
                         ref={setContactRef}
@@ -107,12 +111,10 @@ const Contact: React.FC = () => {
                         </p>
                     </div>
 
-                    {/* Contact Cards - Only 2 cards now */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20 max-w-4xl mx-auto">
+                    {/* Contact Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
                         {/* Aesthetic Inquiries */}
-                        <div
-                            className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-emerald-500"
-                        >
+                        <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-emerald-500">
                             <div className="text-center">
                                 <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
                                     <Phone className="w-8 h-8 text-emerald-600" />
@@ -129,9 +131,7 @@ const Contact: React.FC = () => {
                         </div>
 
                         {/* Medical Inquiries */}
-                        <div
-                            className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-blue-500"
-                        >
+                        <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-blue-500">
                             <div className="text-center">
                                 <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6 group-hover:scale-110 transition-transform duration-300">
                                     <Phone className="w-8 h-8 text-blue-600" />
@@ -149,9 +149,7 @@ const Contact: React.FC = () => {
                     </div>
 
                     {/* Quick Actions */}
-                    <div
-                        className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 md:p-12 text-center text-white"
-                    >
+                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 md:p-12 text-center text-white">
                         <h3 className="text-3xl font-bold mb-6">Ready to Get Started?</h3>
                         <p className="text-xl mb-8 opacity-90">
                             Book your consultation today and take the first step towards your transformation.
@@ -174,7 +172,7 @@ const Contact: React.FC = () => {
                 </div>
             </section>
 
-            {/* Map Section */}
+            {/* Location & Map Section */}
             <section className="py-20 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div
@@ -189,9 +187,7 @@ const Contact: React.FC = () => {
                         </p>
                     </div>
 
-                    <div
-                        className="bg-white rounded-3xl shadow-2xl overflow-hidden"
-                    >
+                    <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
                         <div className="grid md:grid-cols-5 gap-0">
                             {/* Location Details */}
                             <div className="md:col-span-2 p-8 md:p-12 bg-gradient-to-br from-blue-50 to-indigo-50">
@@ -233,6 +229,18 @@ const Contact: React.FC = () => {
                                             <p className="text-gray-600">
                                                 By appointment only<br />
                                                 Please call to schedule
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start space-x-4">
+                                        <div className="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+                                            <Mail className="w-6 h-6 text-amber-600" />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-semibold text-gray-900 mb-1">Weekend Appointments</h4>
+                                            <p className="text-gray-600">
+                                                Email: <a href="mailto:INQUIREPMC@GMAIL.COM" className="text-blue-600 hover:text-blue-700">INQUIREPMC@GMAIL.COM</a>
                                             </p>
                                         </div>
                                     </div>

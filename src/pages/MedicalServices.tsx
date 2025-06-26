@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Mail, Clock, Phone, MapPin, ArrowRight, ChevronDown, AlertTriangle } from 'lucide-react';
+import { Mail, Clock, Phone, MapPin, ArrowRight, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function MedicalServices() {
   const [showBookingButton, setShowBookingButton] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,27 +11,15 @@ function MedicalServices() {
       setShowBookingButton(scrollPosition > 500);
     };
 
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Set initial desktop state
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  // The 'if (isDesktop)' block was empty, so I've kept it as-is in case you plan to add desktop-specific logic.
-  if (isDesktop) {
-    // ...do something for desktop
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-inter"> {/* Added font-inter class */}
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white font-inter">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
@@ -40,8 +27,6 @@ function MedicalServices() {
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579684385127-1ef15d508118')] bg-cover bg-center"
             onError={(e) => {
               const target = e.target as HTMLDivElement;
-              // @ts-ignore: onerror may not exist on HTMLDivElement, but we want to clear it
-              target.onerror = null;
               target.style.backgroundImage = `url(https://placehold.co/1920x1080/E0E7FF/4338CA?text=Medical+Background)`;
             }}
           ></div>
@@ -62,22 +47,6 @@ function MedicalServices() {
               Exceptional Healthcare, Compassionate Service
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#appointment-warning"
-                className="px-8 py-4 bg-red-500 text-white rounded-full font-semibold hover:bg-red-600 transition-all transform hover:scale-105 flex items-center"
-              >
-                Important Information <ChevronDown className="ml-2 h-5 w-5" />
-              </a>
-
-              <a
-                href="#contact"
-                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold hover:bg-white/20 transition-all flex items-center"
-              >
-                Contact Us <ChevronDown className="ml-2 h-5 w-5" />
-              </a>
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
               <a
                 href="https://g.co/kgs/MtpmHmo"
@@ -87,7 +56,7 @@ function MedicalServices() {
               >
                 <Clock className="h-8 w-8 text-blue-300 mx-auto mb-4" />
                 <h3 className="text-white font-semibold mb-2">Find Our Opening Times</h3>
-                <p className="text-blue-100">Find out opening times- Checked to times of operation</p>
+                <p className="text-blue-100">Check our hours of operation</p>
               </a>
 
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
@@ -112,8 +81,8 @@ function MedicalServices() {
         </div>
       </section>
 
-      {/* CRITICAL WARNING SECTION - First thing users see */}
-      <section id="appointment-warning" className="py-20 bg-red-50 border-l-4 border-red-500">
+      {/* CRITICAL WARNING SECTION - Prominently displayed */}
+      <section className="py-20 bg-red-50 border-l-4 border-red-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -249,7 +218,7 @@ function MedicalServices() {
       </section>
 
       {/* Map Section */}
-      <section id="contact" className="bg-gray-50 py-20">
+      <section className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -266,8 +235,7 @@ function MedicalServices() {
             transition={{ duration: 0.8 }}
             className="bg-white rounded-2xl shadow-xl overflow-hidden"
           >
-            {/* Removed the grid and location details div */}
-            <div className="h-[500px] md:h-[600px] w-full"> {/* Increased height for a larger map */}
+            <div className="h-[500px] md:h-[600px] w-full">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2879.8234567890123!2d-79.32706230474648!3d43.76041789604095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4d2645af41409%3A0xd97a338978c452c5!2sParkwood%20Medical%20Centre!5e0!3m2!1sen!2slk!4v1749399775297!5m2!1sen!2slk"
                 width="100%"

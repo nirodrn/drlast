@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const API_KEY = 'AIzaSyCm-LEH6ALM3tmn1Xn50eZykS9KD_EvyOc';
+const API_KEY = 'AIzaSyAYuJPxbPgS_0jp4jERMv6UPTEdZ3G16Gs';
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 export interface TreatmentData {
@@ -334,7 +334,5 @@ Please respond to the patient's question in this friendly, conversational style:
 
 export const geminiChatService = new GeminiChatService();
 
-// Test the connection on initialization
-geminiChatService.testConnection().then(success => {
-  console.log('Gemini API connection test:', success ? 'SUCCESS' : 'FAILED');
-});
+// Removed automatic connection test to prevent quota exhaustion
+// The testConnection method is still available for manual testing if needed
