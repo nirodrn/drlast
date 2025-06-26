@@ -4,6 +4,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../contexts/AuthContext';
 import Footer from './Footer';
+import Chatbot from './Chatbot';
 import clsx from 'clsx';
 
 const navigation = [
@@ -217,6 +218,9 @@ export default function Layout() {
             <main className="flex-1">
                 <Outlet />
             </main>
+
+            {/* Chatbot Component */}
+            <Chatbot />
 
             <Footer />
         </div>
