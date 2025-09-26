@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+    scroll-behavior: auto; /* Disable smooth scrolling for instant scroll to top */
+  }
+  
+  body {
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+}
+
+@layer components {
+  .btn {
+    @apply rounded-md px-3.5 py-2.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-500 focus-visible:outline-primary-600;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
+  }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Ensure scroll restoration works properly */
+html {
+  scroll-restoration: manual;
+}
